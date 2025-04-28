@@ -120,17 +120,13 @@ function submitData() {
         const alcohol = row.cells[3].querySelector('input').value.trim();
 
         if (alcohol !== "") {
-            fetch(webAppURL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    item: item,
-                    lastName: lastName,
-                    firstName: firstName,
-                    alcohol: alcohol
-                }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
+      fetch(webAppURL, {
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `item=${encodeURIComponent(item)}&lastName=${encodeURIComponent(lastName)}&firstName=${encodeURIComponent(firstName)}&alcohol=${encodeURIComponent(alcohol)}`
+})
             })
             .then(response => response.json())
             .then(data => {
