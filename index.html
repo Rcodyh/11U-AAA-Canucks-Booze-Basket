@@ -35,17 +35,39 @@
         </tr>
     </thead>
     <tbody>
-        <tr><td>1.0</td><td>Bauck</td><td>Carter</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>2.0</td><td>Blais</td><td>Bennett</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>3.0</td><td>Clarke</td><td>Louie</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>4.0</td><td>Dick</td><td>Jacob</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>5.0</td><td>Glasser</td><td>Jase</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>6.0</td><td>Hill</td><td>Merik</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>7.0</td><td>MacDonald</td><td>Caiden</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>8.0</td><td>MacQuarrie</td><td>Alex</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>9.0</td><td>McCallum</td><td>Nash</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>10.0</td><td>Redshaw</td><td>Grady</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-        <tr><td>11.0</td><td>Sebastien</td><td>Curtis</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
+<tr>
+<td>1.0</td><td>Bauck</td><td>Carter</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>2.0</td><td>Blais</td><td>Bennett</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>3.0</td><td>Clarke</td><td>Louie</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>4.0</td><td>Dick</td><td>Jacob</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>5.0</td><td>Glasser</td><td>Jase</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>6.0</td><td>Hill</td><td>Merik</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>7.0</td><td>MacDonald</td><td>Caiden</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>8.0</td><td>MacQuarrie</td><td>Alex</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>9.0</td><td>McCallum</td><td>Nash</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>10.0</td><td>Redshaw</td><td>Grady</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
+<tr>
+<td>11.0</td><td>Sebastien</td><td>Curtis</td><td><input type="text" placeholder="Enter Alcohol Item"></td>
+</tr>
     </tbody>
 </table>
 
@@ -64,17 +86,23 @@ function submitData() {
         const alcohol = row.cells[3].querySelector('input').value.trim();
 
         if (alcohol !== "") {
-            const formData = `item=${encodeURIComponent(item)}&lastName=${encodeURIComponent(lastName)}&firstName=${encodeURIComponent(firstName)}&alcohol=${encodeURIComponent(alcohol)}`;
+            const formData = {
+                item: item,
+                lastName: lastName,
+                firstName: firstName,
+                alcohol: alcohol
+            };
 
             fetch(webAppURL, {
                 method: 'POST',
-                mode: 'no-cors',  // <-- Added this line
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/json",
                 },
-                body: formData
+                body: JSON.stringify(formData)
             })
-            .then(() => {
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
                 alert('Your entry was submitted successfully!');
             })
             .catch(error => {
