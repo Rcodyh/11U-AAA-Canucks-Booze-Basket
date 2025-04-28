@@ -14,13 +14,18 @@
             width: 100%;
             box-sizing: border-box;
         }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
 <h2>11U AAA Canucks Booze Basket</h2>
 
-<table>
+<table id="boozeTable">
     <thead>
         <tr>
             <th>Item</th>
@@ -30,75 +35,66 @@
         </tr>
     </thead>
     <tbody>
-<tr>
-        <td>1.0</td>
-        <td>Bauck</td>
-        <td>Carter</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>2.0</td>
-        <td>Blais</td>
-        <td>Bennett</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>3.0</td>
-        <td>Clarke</td>
-        <td>Louie</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>4.0</td>
-        <td>Dick</td>
-        <td>Jacob</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>5.0</td>
-        <td>Glasser</td>
-        <td>Jase</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>6.0</td>
-        <td>Hill</td>
-        <td>Merik</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>7.0</td>
-        <td>MacDonald</td>
-        <td>Caiden</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>8.0</td>
-        <td>MacQuarrie</td>
-        <td>Alex</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>9.0</td>
-        <td>McCallum</td>
-        <td>Nash</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>10.0</td>
-        <td>Redshaw</td>
-        <td>Grady</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-<tr>
-        <td>11.0</td>
-        <td>Sebastien</td>
-        <td>Curtis</td>
-        <td><input type="text" placeholder="Enter Alcohol Item"></td>
-    </tr>
-
+        <!-- Your table rows go here (you already have them) -->
+        <tr>
+            <td>1</td>
+            <td>Bauck</td>
+            <td>Carter</td>
+            <td><input type="text" placeholder="Enter Alcohol Item"></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Blais</td>
+            <td>Bennett</td>
+            <td><input type="text" placeholder="Enter Alcohol Item"></td>
+        </tr>
+        <!-- More rows.... -->
     </tbody>
 </table>
+
+<!-- Submit button -->
+<button onclick="submitData()">Submit</button>
+
+<script>
+// Replace this URL with your actual Web App URL!
+const webAppURL = 'YOUR_WEB_APP_URL';
+
+function submitData() {
+    const rows = document.querySelectorAll("#boozeTable tbody tr");
+
+    rows.forEach(row => {
+        const item = row.cells[0].innerText.trim();
+        const lastName = row.cells[1].innerText.trim();
+        const firstName = row.cells[2].innerText.trim();
+        const alcohol = row.cells[3].querySelector('input').value.trim();
+
+        // Only send rows where the Alcohol field is filled
+        if (alcohol !== "") {
+            fetch(webAppURL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    item: item,
+                    lastName: lastName,
+                    firstName: firstName,
+                    alcohol: alcohol
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Your entry was submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('There was an error submitting your entry.');
+            });
+        }
+    });
+}
+</script>
 
 </body>
 </html>
