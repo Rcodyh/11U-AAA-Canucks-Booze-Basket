@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11U AAA Canucks Booze Basket</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        input[type="text"] {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Alcohol (min $25)</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Alcohol (min $25)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Person 1</td>
+            <td><input type="text" placeholder="Enter alcohol item"></td>
+        </tr>
+        <tr>
+            <td>Person 2</td>
+            <td><input type="text" placeholder="Enter alcohol item"></td>
+        </tr>
+        <tr>
+            <td>Person 3</td>
+            <td><input type="text" placeholder="Enter alcohol item"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
