@@ -43,4 +43,45 @@
 <tr><td>6.0</td><td>Hill</td><td>Merik</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
 <tr><td>7.0</td><td>MacDonald</td><td>Caiden</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
 <tr><td>8.0</td><td>MacQuarrie</td><td>Alex</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
-<tr><td>9.0</td><td>McCall
+<tr><td>9.0</td><td>McCallum</td><td>Nash</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
+<tr><td>10.0</td><td>Redshaw</td><td>Grady</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
+<tr><td>11.0</td><td>Sebastien</td><td>Curtis</td><td><input type="text" placeholder="Enter Alcohol Item"></td></tr>
+    </tbody>
+</table>
+
+<button onclick="submitData()">Submit</button>
+
+<script>
+const webAppURL = 'https://script.google.com/macros/s/AKfycbyP5dloq7W_jOtEI3iHKo1S-vNUX_Y3JZAHHVZimo-fKMCG2QC4HYzSrxjcKxvecnZu/exec';
+
+function submitData() {
+    const rows = document.querySelectorAll("#boozeTable tbody tr");
+
+    rows.forEach(row => {
+        const item = row.cells[0].innerText.trim();
+        const lastName = row.cells[1].innerText.trim();
+        const firstName = row.cells[2].innerText.trim();
+        const alcohol = row.cells[3].querySelector('input').value.trim();
+
+        if (alcohol !== "") {
+            const formData = {
+                item,
+                lastName,
+                firstName,
+                alcohol
+            };
+
+            fetch(webAppURL, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Your entry was submitted successfully!');
+            })
+            .catch(error => {
+                alert('There was an error submitting your entry.');
+                console.error(error);
